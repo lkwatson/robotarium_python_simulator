@@ -321,6 +321,7 @@ class CTFGame(object):
 
 
 def plot_game(game, fidelity=1):
+    assert fidelity > 1.0, "Fidelity should be an integer greater than 1"
     state_history = game.state_history
     robo_inst = game.robo_inst
 
