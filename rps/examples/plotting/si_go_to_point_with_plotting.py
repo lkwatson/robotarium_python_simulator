@@ -59,12 +59,11 @@ r.step()
 # While the number of robots at the required poses is less
 # than N...
 while (np.size(at_pose(np.vstack((x_si,x[2,:])), goal_points, rotation_error=100)) != N):
-
     # Get poses of agents
     x = r.get_poses()
     x_si = uni_to_si_states(x)
 
-    #Update Plot
+    # Update Plot
     # Update Robot Marker Plotted Visualization
     for i in range(x.shape[1]):
         robot_markers[i].set_offsets(x[:2,i].T)

@@ -1,3 +1,8 @@
+Capture the Flag (WEHack)
+============
+
+This is a forked version of the Robotarium python simulator which includes the capture the flag game.
+
 Introduction
 ============
 
