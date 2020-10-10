@@ -58,6 +58,36 @@ class RobotPolicy(object):
         return vel_cmd
 
 
+class RobotObservation(object):
+    def __init__(self):
+        self.left_encoder = 0  # rads
+        self.right_encoder = 0  # rads
+
+        self.flags = list()
+        self.robots = list()
+
+    def populate_flags(self, ego_state, flag_loc, active, color):
+        flag = dict()
+        angle = np.arctan2(ego_state._pose[1] - flag_loc[1], ego_state._pose[0] - flag_loc[0]) - ego_state._pose[2]
+        angle = (angle + np.pi) % (2 * np.pi) - np.pi
+        flag['angle'] = angle
+        dist = np.linalg.norm((ego_state._pose[:2] - flag_loc))
+        flag['dist'] = dist
+        flag['color'] = color
+        flag['active'] = active
+        self.flags.append(flag)
+        
+    def populate_robots(self, ego_state, bot):
+        bot_obs = dict()
+        angle = np.arctan2(ego_state._pose[1] - bot._pose[1], ego_state._pose[0] - bot._pose[0]) - ego_state._pose[2]
+        angle = (angle + np.pi) % (2 * np.pi) - np.pi
+        bot_obs['angle'] = angle
+        dist = np.linalg.norm((ego_state._pose[:2] - bot._pose[:2]))
+        bot_obs['dist'] = dist
+        bot_obs['color'] = 'purple' if bot.is_team_purple else 'orange'
+        self.robots.append(bot_obs)
+
+
 class CTFGame(object):
     def __init__(self, num_robots=12, store_state_history=True, max_iterations=1000, use_barriers=True):
         # Instantiate Robotarium object
