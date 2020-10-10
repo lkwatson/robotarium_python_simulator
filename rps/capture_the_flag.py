@@ -4,6 +4,9 @@ from rps.utilities.barrier_certificates import *
 from rps.utilities.misc import *
 from rps.utilities.controllers import *
 
+import matplotlib.animation as animation
+import matplotlib.patches as patches
+
 import numpy as np
 import time
 import copy
